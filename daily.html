@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" href="css/datepicker/jquery-ui.css">
+		<script src="js/jQuery.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/jquery-ui.js"></script>
+		<script src="js/datepicker-setting.js"></script>
+		<script src="js/base.js"></script>
+		<script src="js/daily.js"></script>
+		<title>Agile  Scrumer｜ アジャイル  スクラマー</title>
+	</head>
+	<body>
+		<div id="main" class="container">
+			<div class="row">
+				<nav class="span12">
+					<ul class="nav nav-tabs">
+						  <li>
+						    <a href="home.html">Home</a>
+						  </li>
+						  <li class="active">
+						  	<a href="daily.html">Daily</a>
+						  </li>
+						  <li>
+						  	<a href="think-back.html">Think Back</a>
+						  </li>
+						</ul>
+				</nav>
+			</div>
+			<div class="row">
+				<article class="span12">
+					<div class="row">
+						<section id="daily" class="span4">
+							<h1>
+								<i class="icon-calendar icon-white"> </i> Daily
+								<span class="dateLabel"> </span>
+							</h1>
+							<div id="datepicker"> </div>
+							 <input type="hidden" id="taskDate" />
+						</section>
+						<div class="span8">
+							<section id="worker">
+								<h1>タスクに入れる人</h1>
+								<div class="memberList row"> </div>
+								<div class="pair">
+									<label class="label label-info">
+										<span class="pairCount"> </span> Pair
+									</label>
+								</div>
+							</section>
+							<section id="assignProject">
+								<h1>ペアごとのプロジェクト割振り</h1>
+								<div class="assignList row"> </div>
+							</section>
+						</div>
+						<section id="pairing" class="span12">
+							<h1>ペアを決める</h1>
+							<div class="pairList row"> </div>
+							<p>
+								<button type="button" class="btn shuffle">Shuffle</button>
+							</p>
+						</section>
+						<section class="span6">
+							<h1>ペアごとの消化数</h1>
+							<table id="dailyRecord" class="table">
+								<thead>
+									<tr>
+										<th>　</th>
+										<th>かんばんタスク</th>
+										<th>不具合</th>
+									</tr>
+								</thead>
+							</table>
+						</section>
+						<section class="span6">
+							<h1>チーム実績</h1>
+						</section>
+					</div>
+				</article>
+			</div>
+		</div>
+	</body>
+</html>

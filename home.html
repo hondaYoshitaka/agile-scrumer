@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/base.css">
+		<script src="js/jQuery.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/base.js"></script>
+		<script src="js/home.js"></script>
+		<title>Agile  Scrumer｜ アジャイル  スクラマー</title>
+	</head>
+	<body>
+		<div id="main" class="container">
+			<div class="row">
+				<nav class="span12">
+					<ul class="nav nav-tabs">
+						  <li class="active">
+						    <a href="home.html">Home</a>
+						  </li>
+						  <li>
+						  	<a href="daily.html">Daily</a>
+						  </li>
+						  <li>
+						  	<a href="think-back.html">Think Back</a>
+						  </li>
+						</ul>
+				</nav>
+			</div>
+			<header>
+				<div class="container">
+					<h1><span class="accent">A</span>gile Scrumer</h1>
+					<p>― Daily Task and Thinking Back to the Old Days </p>
+				</div>
+			</header>
+			<div class="row">
+				<article class="span12">
+					<div class="row">
+						<section id="listMember" class="span6">
+							<h1>
+								<i class="icon-user icon-white"> </i> メンバー
+							</h1>
+							<div class="row detail"> </div>
+						</section>
+						<section id="listProject" class="span6">
+							<h1>
+								<i class="icon-bookmark icon-white"> </i> 進行中のプロジェクト
+							</h1>
+							<div class="row detail"> </div>
+						</section>
+					</div>
+				</article>
+			</div>
+		</div>
+
+		<section id="inputMember" class="popupDialog">
+			<h1>新規メンバーの追加</h1>
+			<form class="form-horizontal">
+			  <div class="control-group">
+			    <label class="control-label">名前</label>
+			    <div class="controls">
+			      <input type="text" name="memberName" placeholder="member name" required />
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <div class="controls">
+			      <button type="button" class="btn register">作成</button>
+			    </div>
+			  </div>
+			</form>
+		</section>
+
+		<section id="inputProject" class="popupDialog">
+			<h1>新規プロジェクトの追加</h1>
+			<form class="form-horizontal">
+			  <div class="control-group">
+			    <label class="control-label">プロジェクト名</label>
+			    <div class="controls">
+			      <input type="text" name="projectName" placeholder="project name" required/>
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <div class="controls">
+			      <button type="button" class="btn register">作成</button>
+			    </div>
+			  </div>
+			</form>
+		</section>
+	</body>
+</html>
