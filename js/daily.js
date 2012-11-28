@@ -34,24 +34,10 @@
 		div.pairNumber.find('.pairCount').text(countPair);
 	};
 
-	/** ペアごとのプロジェクト割振 */
-	section.project.on('list.refresh', function(){
-		div.assignList.empty();
-		var projects = $.fromLocalStrage(keys.project);
-		for(var i = 1; i <= countPair() ; i++){
-			var select = $.createSelectbox(projects);
-			var span = $('<span/>').addClass('span4')
-								.append($.createCheckbox('pair ' + i, ''))
-								.append(select.attr('name', 'pair'+i));
-			div.assignList.append(span);
-		}
-	});
-
 	/** メンバーリスト */
 	div.memberList.on('change', 'input[type=checkbox]', function() {
 		// すべてを初期化する
 		labelingPairCount();
-		section.project.trigger('list.refresh');
 		div.pairList.trigger('list.refresh');
 	});
 
@@ -64,7 +50,6 @@
 			div.memberList.append(span);
 		});
 		labelingPairCount();
-		section.project.trigger('list.refresh');
 		div.pairList.trigger('list.refresh');
 	}).trigger('list.refresh');
 
@@ -72,12 +57,26 @@
 	div.pairList.on('list.refresh',function(){
 		div.pairList.empty();
 		for(var i=1 ; i <= countPair() ; i++){
+			var projects = $.fromLocalStrage(keys.project);
+			var select = $.createSelectbox(projects);
+
 			var icon = $('<i/>').addClass('  icon-ok');
-			var pairDiv = $('<div/>').addClass('span3 pair').attr('data-pair-id', i)
-									.append(icon).append(' pair '+i);
+			var pairDiv = $('<div/>').addClass('span3 pair').attr('data-pair-id', i);
+			var inner = $('<div/>').addClass('inner')
+										.append(icon).append(' pair '+i).append(select)
+										.appendTo(pairDiv);
 			div.pairList.append(pairDiv);
 		}
 	}).trigger('list.refresh');
+
+	/** メンバー管理ボタン */
+	$('#setWorker').on('click', function(){
+		$('#worker').show();
+		var cover = $.doPageCover();
+		cover.on('click' , function(){
+			$('#worker').hide();
+		});
+	});
 
 	/** シャッフルボタン */
 	btn.shuffle.on('click', function(){
@@ -93,7 +92,7 @@
 			for(var i=0; i < max_member_num ;i++){
 				var member = members.pop(members[0]);
 				var p = $('<p/>').addClass('member').append(member);
-				pd.append(p);
+				pd.find('.inner').append(p);
 			}
 		});
 	});

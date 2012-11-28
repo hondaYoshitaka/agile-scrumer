@@ -4,7 +4,7 @@
 }
 
 body {
-	background-color:#CCC;
+	background-image:url('../img/shattered.png');
 }
 
 nav .nav-tabs  li > a{
@@ -31,12 +31,12 @@ header p{
 	color : #FFC957;
 }
 
-aside, article{
-	background-color: #DDD;
+aside{
+	background-color: #FFF;
 }
 
 section{
-	background-color: #FFF;
+	background-color: rgba(255,255,255,0.9);
 	margin-bottom: 10px;
 }
 section h1{
@@ -49,6 +49,7 @@ section h1{
 	margin: 0px 0px 10px 0px;
 	padding-right: 10px;
 	padding-left: 10px;
+	border-radius: 2px;
 }
 input[type=number]{
 	text-align: right;
@@ -62,8 +63,8 @@ input[type=number]{
 	width: 50%;
 	background-color: #FFF;
 	position: absolute;
-	top: 100px;
-	left: 200px;
+	top: 25%;
+	left: 25%;
 	z-index: 10;
 }
 .add{
@@ -79,14 +80,12 @@ input[type=number]{
 .detail i{
 	margin: 0px 5px 10px;
 }
-#assignProject select{
-	float: right;
-}
 
-#pairing .pair{
-	height: 100px;
+.pair .inner{
+	min-height: 120px;
+	margin: 10px;
+	padding: 5px 10px;
 	background-color: #FFE7BD;
-	margin-bottom: 10px;
 }
 
 /* datepicker */
@@ -102,7 +101,7 @@ input[type=number]{
 /* ページカバー用 */
 .cover:after{
 	position: absolute;
-	content: "";
+	content: " ";
 	width: 100%;
 	height: 100%;
 	top: 0;

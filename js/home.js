@@ -70,18 +70,22 @@ $(function(){
 	section.list.member.on('list.refresh', function() {
 		var detail = $(this).find('.detail').empty();
 		var members = $.fromLocalStrage(keys.member);
-		$.each(members, function(index) {
-			detail.append($.createLabelWithIcon('icon-user', members[index]).addClass('span2'));
-		});
+		if(members){
+			$.each(members, function(index) {
+				detail.append($.createLabelWithIcon('icon-user', members[index]).addClass('span2'));
+			});
+		}
 		detail.append(createAddBtn('add member').addClass('span6'));
 	}).trigger('list.refresh');
 
 	section.list.project.on('list.refresh', function() {
 		var detail = $(this).find('.detail').empty();
 		var projects = $.fromLocalStrage(keys.project);
-		$.each(projects, function(index) {
-			detail.append($.createLabelWithIcon('icon-bookmark', projects[index]).addClass('span2'));
-		});
+		if(projects){
+			$.each(projects, function(index) {
+				detail.append($.createLabelWithIcon('icon-bookmark', projects[index]).addClass('span2'));
+			});
+		}
 		detail.append(createAddBtn('add project').addClass('span6'));
 	}).trigger('list.refresh');
 });

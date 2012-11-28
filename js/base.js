@@ -1,8 +1,8 @@
 ;$.extend({
 	doPageCover : function(){
-		 return $('<div/>').on('click', function(){
-			$(this).remove();
-		}).appendTo('body').addClass('cover');
+		 return  $('<div/>').on('click', function(){
+				$(this).remove();
+			}).appendTo('body').addClass('cover');
 	},
 	toLocalStrage: function(key, object) {
 		var str = JSON.stringify(object);
