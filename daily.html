@@ -34,7 +34,16 @@
 				<article class="span12">
 					<div class="row">
 						<section class="span8">
-							<h1>チーム実績</h1>
+							<h1>
+								チーム実績
+								<button id="record" class="btn btn-mini">
+									<i class="icon-edit"></i> 記入
+								</button>
+							</h1>
+							<p>総数</p>
+							<p>修正済</p>
+							<p>クローズ</p>
+							<p>1ペア当りの修正数</p>
 						</section>
 						<section id="daily" class="span4">
 							<h1>
@@ -48,7 +57,9 @@
 						<section id="pairing" class="span12">
 							<h1>
 								ペアを決める
-								<button id="setWorker" class="btn btn-mini"><i class="icon-cog"></i> 管理</button>
+								<button id="setWorker" class="btn btn-mini">
+									<i class="icon-cog"></i> 管理
+								</button>
 							</h1>
 							<div class="pairList row"> </div>
 							<div class="btn-toolbar">
@@ -57,18 +68,8 @@
 								</div>
 							</div>
 						</section>
-						<section class="span12">
-							<h1>ペアごとの消化数</h1>
-							<table id="dailyRecord" class="table">
-								<thead>
-									<tr>
-										<th>　</th>
-										<th>かんばんタスク</th>
-										<th>不具合</th>
-									</tr>
-								</thead>
-							</table>
-						</section>
+
+						<!-- ポップアップ -->
 						<section id="worker" class="popupDialog">
 							<h1>タスクに入れる人</h1>
 							<div class="memberList row"> </div>
@@ -76,6 +77,28 @@
 								<label class="label label-info">
 									<span class="pairCount"> </span> Pair
 								</label>
+							</div>
+						</section>
+						<section id="recordDaily" class="popupDialog">
+							<h1>実績の入力</h1>
+							<table class="table table-bordered">
+								<tr style="width:200px;">
+									<th>総不具合数</th>
+									<td><input type="number" class="input-mini" /></td>
+								</tr>
+								<tr>
+									<th>修正済み不具合</th>
+									<td><input type="number" class="input-mini" /></td>
+								</tr>
+								<tr>
+									<th>不具合増加数</th>
+									<td><input type="number" class="input-mini" /></td>
+								</tr>
+							</table>
+							<div class="btn-toolbar">
+								<div class="btn-group">
+									<button id="save" class="btn btn-primary">save</button>
+								</div>
 							</div>
 						</section>
 					</div>

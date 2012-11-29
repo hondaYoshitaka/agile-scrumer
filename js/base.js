@@ -52,10 +52,6 @@ $.fn.extend({
 
 });
 
-var keys = {
-		member : 'member',
-		project : 'project'
-};
 /** 配列をシャッフルする */
 Array.prototype.shuffle = function() {
 	var i = this.length;
@@ -67,3 +63,24 @@ Array.prototype.shuffle = function() {
 	}
 	return this;
 };
+
+/** ローカルストレージのキー */
+var keys = {
+		member: 'member',
+		project: 'project',
+		dailyRecode: 'daily_record'
+};
+
+/** 日々のレコード */
+var DailyRecord = (function(){
+	var DailyRecord = function(price, quantity){
+		var s = this;
+		s.price = price;
+		s.quantity = quantity;
+	};
+	DailyRecord.prototype.countSubtotal = function(){
+		var s = this;
+		return parseInt(s.price * s.quantity);
+	};
+	return DailyRecord;
+})();

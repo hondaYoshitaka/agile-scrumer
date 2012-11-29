@@ -78,6 +78,15 @@
 		});
 	});
 
+	/** 実績の記入ボタン */
+	$('#record').on('click', function(){
+		$('#recordDaily').show();
+		var cover = $.doPageCover();
+		cover.on('click' , function(){
+			$('#recordDaily').hide();
+		});
+	});
+
 	/** シャッフルボタン */
 	btn.shuffle.on('click', function(){
 		div.pairList.trigger('list.refresh');
@@ -116,6 +125,10 @@
 		dailyTable.append(tbody);
 	}).trigger('table.refresh');
 
+	$('#save').on('click', function(){
+
+	});
+
 	/** datepicker */
 	$('#datepicker').datepicker({
 	    onSelect: function(dateText, inst) {
@@ -123,6 +136,7 @@
 	        $("#taskDate").val(dateText);
 	    }
 	});
+
 	// デフォルト表示を現在日付にする
 	$('.dateLabel').text($.getCurrentDate());
 	$("#taskDate").val($.getCurrentDate());
