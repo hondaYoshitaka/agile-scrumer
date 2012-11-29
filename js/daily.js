@@ -1,4 +1,5 @@
 ;$(function() {
+	// 画面要素の宣言
 	var section = {
 			worker : $('#worker'),
 			project : $('#assignProject'),
@@ -18,6 +19,7 @@
 			dailyRecord : $('#dailyRecord')
 	};
 
+	// Daily関連のfunction
 	var getCheckedMembers = function() {
 		var result = new Array();
 		var assignableMember = div.memberList.find('input[type=checkbox]:checked');
@@ -32,6 +34,22 @@
 	};
 	var labelingPairCount = function() {
 		div.pairNumber.find('.pairCount').text(countPair);
+	};
+	var setBugs = function(bugs) {
+		$('input[name=total]').val(bugs.total);
+		$('input[name=fixed]').val(bugs.fixed);
+		$('input[name=increase]').val(bugs.increase);
+	};
+	var setWorker = function(pairs) {
+		$('#worker').find('input[type=checkbox]').removeAttr('checked');
+		for(var key in pairs){
+			pairs[key].members.forEach(function(val, index, array){
+				$('#worker').find('input[value='+ val +']').attr('checked','checked');
+			});
+		}
+	};
+	var setPair = function(pairs) {
+
 	};
 
 	/** メンバーリスト */
@@ -106,27 +124,33 @@
 		});
 	});
 
-	/** レコードテーブル */
-	table.dailyRecord.on('table.refresh', function() {
-		//FIXME 暫定的にinputを埋めている。
-		var createTd = function() {
-			var input = $('<input/>').attr('type','number').addClass('input-mini');
-			return $('<td/>').append(input);
-		};
-		var dailyTable = $(this);
-		var tbody = $('<tbody/>');
-		for(var i=1 ; i <= countPair() ; i++){
-			var tr = $('<tr/>');
-			var td = $('<td/>').append('pair ' +i);
-			tr.append(td);
-			tr.append(createTd()).append(createTd());
-			tbody.append(tr);
-		}
-		dailyTable.append(tbody);
-	}).trigger('table.refresh');
-
+	/** 保存ボタン */
 	$('#save').on('click', function(){
-
+		var record = {
+				pairs: {},
+				bugs: {}
+		};
+		//ペアの情報を詰める
+		div.pairList.find('.pair').each(function(){
+			var pair = $(this);
+			var pairId = pair.data('pair-id');
+			var members = new Array();
+			pair.find('.member').each(function() {
+				var name = $(this).text();
+				members.push(name);
+			});
+			record.pairs['pair'+pairId] =  {
+					members: members,
+					project: pair.find('select>option:checked').val()
+			};
+		});
+		//バグの情報をつめる
+		record.bugs={
+				total: $('input[name=total]').val(),
+				fixed: $('input[name=fixed]').val(),
+				increase: $('input[name=increase]').val()
+		};
+		$.saveDailyRecord($("#taskDate").val(), record);
 	});
 
 	/** datepicker */
@@ -136,8 +160,16 @@
 	        $("#taskDate").val(dateText);
 	    }
 	});
-
 	// デフォルト表示を現在日付にする
 	$('.dateLabel').text($.getCurrentDate());
 	$("#taskDate").val($.getCurrentDate());
+
+	//データの読み込み
+	var taskDate = $("#taskDate").val();
+	var  loadedRecord = $.selectDailyRecord(taskDate);
+	if(loadedRecord){
+		setBugs(loadedRecord.bugs);
+		setWorker(loadedRecord.pairs);
+		setPair(loadedRecord.pairs);
+	}
 });

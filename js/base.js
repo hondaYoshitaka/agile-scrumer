@@ -45,6 +45,17 @@
 	getCurrentDate : function(){
 		var current = new Date();
 		return current.getFullYear() + "/" + $.padZero(current.getMonth()+1) + "/" + $.padZero(current.getDate());
+	},
+	saveDailyRecord : function(date, record){
+		var records = $.fromLocalStrage(keys.dailyRecode);
+		if(!records) records = {};
+		records[date]= record;
+		$.toLocalStrage(keys.dailyRecode, records);
+		return true;
+	},
+	selectDailyRecord: function(date) {
+		var records = $.fromLocalStrage(keys.dailyRecode);
+		return records[date];
 	}
 });
 
@@ -70,17 +81,3 @@ var keys = {
 		project: 'project',
 		dailyRecode: 'daily_record'
 };
-
-/** 日々のレコード */
-var DailyRecord = (function(){
-	var DailyRecord = function(price, quantity){
-		var s = this;
-		s.price = price;
-		s.quantity = quantity;
-	};
-	DailyRecord.prototype.countSubtotal = function(){
-		var s = this;
-		return parseInt(s.price * s.quantity);
-	};
-	return DailyRecord;
-})();
