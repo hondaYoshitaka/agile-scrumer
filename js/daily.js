@@ -10,14 +10,8 @@
 			memberList : section.worker.find('.memberList'),
 			assignList : section.project.find('.assignList'),
 			pairNumber : section.worker.find('.pair'),
-			pairList : section.pairing.find('.pairList')
 	};
-	var btn = {
-			shuffle : section.pairing.find('.shuffle')
-	};
-	var table = {
-			dailyRecord : $('#dailyRecord')
-	};
+	var pairList = $('#pairing').find('.pairList');
 
 	// Daily関連のfunction
 	var getCheckedMembers = function() {
@@ -43,8 +37,9 @@
 	var setWorker = function(pairs) {
 		$('#worker').find('input[type=checkbox]').removeAttr('checked');
 		for(var key in pairs){
-			pairs[key].members.forEach(function(val, index, array){
-				$('#worker').find('input[value='+ val +']').attr('checked','checked');
+			$.each(pairs[key].members, function(index){
+				var val = pairs[key].members[index];
+				$('#worker').find('input[value='+ val +']').trigger('click');
 			});
 		}
 	};
@@ -53,14 +48,14 @@
 	};
 
 	/** メンバーリスト */
-	div.memberList.on('change', 'input[type=checkbox]', function() {
+	$('#worker').find('.memberList').on('change', 'input[type=checkbox]', function() {
 		// すべてを初期化する
 		labelingPairCount();
-		div.pairList.trigger('list.refresh');
+		pairList.trigger('list.refresh');
 	});
 
 	/** タスクに入れる人 */
-	section.worker.on('list.refresh', function() {
+	$('#worker').on('list.refresh', function() {
 		var members = $.fromLocalStrage(keys.member);
 		$.each(members, function(index) {
 			var span = $('<span/>').addClass('span2')
@@ -68,12 +63,12 @@
 			div.memberList.append(span);
 		});
 		labelingPairCount();
-		div.pairList.trigger('list.refresh');
+		pairList.trigger('list.refresh');
 	}).trigger('list.refresh');
 
 	/** ペア決め */
-	div.pairList.on('list.refresh',function(){
-		div.pairList.empty();
+	pairList.on('list.refresh',function(){
+		pairList.empty();
 		for(var i=1 ; i <= countPair() ; i++){
 			var projects = $.fromLocalStrage(keys.project);
 			var select = $.createSelectbox(projects);
@@ -83,35 +78,17 @@
 			var inner = $('<div/>').addClass('inner')
 										.append(icon).append(' pair '+i).append(select)
 										.appendTo(pairDiv);
-			div.pairList.append(pairDiv);
+			pairList.append(pairDiv);
 		}
 	}).trigger('list.refresh');
 
-	/** メンバー管理ボタン */
-	$('#setWorker').on('click', function(){
-		$('#worker').show();
-		var cover = $.doPageCover();
-		cover.on('click' , function(){
-			$('#worker').hide();
-		});
-	});
-
-	/** 実績の記入ボタン */
-	$('#record').on('click', function(){
-		$('#recordDaily').show();
-		var cover = $.doPageCover();
-		cover.on('click' , function(){
-			$('#recordDaily').hide();
-		});
-	});
-
 	/** シャッフルボタン */
-	btn.shuffle.on('click', function(){
-		div.pairList.trigger('list.refresh');
+	$('#pairing').find('.shuffle').on('click', function(){
+		pairList.trigger('list.refresh');
 		var members = getCheckedMembers();
 		members.shuffle();
 
-		var pairDiv = div.pairList.find('div.pair[data-pair-id]');
+		var pairDiv = pairList.find('div.pair[data-pair-id]');
 		pairDiv.each(function() {
 			// 奇数の場合、1ペア3人とする
 			var max_member_num = (members.length % 2 == 1) ? 3 : 2;
@@ -131,7 +108,7 @@
 				bugs: {}
 		};
 		//ペアの情報を詰める
-		div.pairList.find('.pair').each(function(){
+		pairList.find('.pair').each(function(){
 			var pair = $(this);
 			var pairId = pair.data('pair-id');
 			var members = new Array();
@@ -145,31 +122,38 @@
 			};
 		});
 		//バグの情報をつめる
-		record.bugs={
+		record.bugs = {
 				total: $('input[name=total]').val(),
 				fixed: $('input[name=fixed]').val(),
 				increase: $('input[name=increase]').val()
-		};
+			};
 		$.saveDailyRecord($("#taskDate").val(), record);
+	});
+
+	/** Dailyのレコードをロードする */
+	$("#taskDate").on('record.load', function(){
+		var taskDate = $(this);
+		var  loadedRecord = $.selectDailyRecord(taskDate.val());
+		if(loadedRecord){
+			setBugs(loadedRecord.bugs);
+			setWorker(loadedRecord.pairs);
+			setPair(loadedRecord.pairs);
+		}else{
+			// すべてを初期化する
+			labelingPairCount();
+			pairList.trigger('list.refresh');
+		}
 	});
 
 	/** datepicker */
 	$('#datepicker').datepicker({
 	    onSelect: function(dateText, inst) {
 	    	$('.dateLabel').text(dateText);
-	        $("#taskDate").val(dateText);
+	        $("#taskDate").val(dateText).trigger('record.load');
 	    }
 	});
+
 	// デフォルト表示を現在日付にする
 	$('.dateLabel').text($.getCurrentDate());
-	$("#taskDate").val($.getCurrentDate());
-
-	//データの読み込み
-	var taskDate = $("#taskDate").val();
-	var  loadedRecord = $.selectDailyRecord(taskDate);
-	if(loadedRecord){
-		setBugs(loadedRecord.bugs);
-		setWorker(loadedRecord.pairs);
-		setPair(loadedRecord.pairs);
-	}
+	$("#taskDate").val($.getCurrentDate()).trigger('record.load');
 });

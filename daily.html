@@ -36,9 +36,9 @@
 						<section class="span8">
 							<h1>
 								チーム実績
-								<button id="record" class="btn btn-mini">
+								<a href="#recordDaily" role="button" class="btn btn-mini" data-toggle="modal">
 									<i class="icon-edit"></i> 記入
-								</button>
+								</a>
 							</h1>
 							<p>総数</p>
 							<p>修正済</p>
@@ -57,9 +57,9 @@
 						<section id="pairing" class="span12">
 							<h1>
 								ペアを決める
-								<button id="setWorker" class="btn btn-mini">
+								<a href="#worker" role="button" class="btn btn-mini" data-toggle="modal">
 									<i class="icon-cog"></i> 管理
-								</button>
+								</a>
 							</h1>
 							<div class="pairList row"> </div>
 							<div class="btn-toolbar">
@@ -70,35 +70,47 @@
 						</section>
 
 						<!-- ポップアップ -->
-						<section id="worker" class="popupDialog">
-							<h1>タスクに入れる人</h1>
-							<div class="memberList row"> </div>
-							<div class="pair">
-								<label class="label label-info">
-									<span class="pairCount"> </span> Pair
-								</label>
+						<section id="worker" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
+							<div class="modal-header">
+								タスクに入れる人
+							</div>
+							<div class="modal-body">
+								<div class="memberList row"> </div>
+								<div class="pair">
+									<label class="label label-info">
+										<span class="pairCount"> </span> Pair
+									</label>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+								<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save changes</button>
 							</div>
 						</section>
-						<section id="recordDaily" class="popupDialog">
-							<h1>実績の入力</h1>
-							<table class="table table-bordered">
-								<tr style="width:200px;">
-									<th>総不具合数</th>
-									<td><input type="number" name="total" class="input-mini" /></td>
-								</tr>
-								<tr>
-									<th>修正済み不具合</th>
-									<td><input type="number" name="fixed" class="input-mini" /></td>
-								</tr>
-								<tr>
-									<th>不具合増加数</th>
-									<td><input type="number" name="increase" class="input-mini" /></td>
-								</tr>
-							</table>
-							<div class="btn-toolbar">
-								<div class="btn-group">
-									<button id="save" class="btn btn-primary">save</button>
-								</div>
+
+						<section id="recordDaily" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
+							<div class="modal-header">
+								実績の入力
+							</div>
+							<div class="modal-body">
+								<table class="table table-bordered">
+									<tr style="width:200px;">
+										<th>総不具合数</th>
+										<td><input type="number" name="total" class="input-mini" /></td>
+									</tr>
+									<tr>
+										<th>修正済み不具合</th>
+										<td><input type="number" name="fixed" class="input-mini" /></td>
+									</tr>
+									<tr>
+										<th>不具合増加数</th>
+										<td><input type="number" name="increase" class="input-mini" /></td>
+									</tr>
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+								<button id="save" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save changes</button>
 							</div>
 						</section>
 					</div>

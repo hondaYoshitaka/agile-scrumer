@@ -25,10 +25,6 @@ $(function(){
 				project : section.input.project.find('.register')
 			}
 	};
-	var createAddBtn = function(label){
-		var icon = $('<i/>').addClass(' icon-plus-sign icon-white');
-		return $('<a>').attr('href', 'javascript:void(false)').addClass('add').append(icon).append(label);
-	};
 
 	section.list.member.on('click', '.add', function(){
 		section.input.member.show();
@@ -75,7 +71,6 @@ $(function(){
 				detail.append($.createLabelWithIcon('icon-user', members[index]).addClass('span2'));
 			});
 		}
-		detail.append(createAddBtn('add member').addClass('span6'));
 	}).trigger('list.refresh');
 
 	section.list.project.on('list.refresh', function() {
@@ -86,6 +81,5 @@ $(function(){
 				detail.append($.createLabelWithIcon('icon-bookmark', projects[index]).addClass('span2'));
 			});
 		}
-		detail.append(createAddBtn('add project').addClass('span6'));
 	}).trigger('list.refresh');
 });
