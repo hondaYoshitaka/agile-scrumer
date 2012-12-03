@@ -33,17 +33,31 @@
 			<div class="row">
 				<article class="span12">
 					<div class="row">
-						<section class="span8">
+						<section id="teamRecord" class="span8">
 							<h1>
 								チーム実績
-								<a href="#recordDaily" role="button" class="btn btn-mini" data-toggle="modal">
+								<a href="#recordResult" role="button" class="btn btn-mini" data-toggle="modal">
 									<i class="icon-edit"></i> 記入
 								</a>
 							</h1>
-							<p>総数</p>
-							<p>修正済</p>
-							<p>クローズ</p>
-							<p>1ペア当りの修正数</p>
+							<table class="table">
+								<tr class="total">
+									<th>総数</th>
+									<td>-</td>
+								</tr>
+								<tr class="fixed">
+									<th>修正済</th>
+									<td>-</td>
+								</tr>
+								<tr class="increase">
+									<th>増加数</th>
+									<td>-</td>
+								</tr>
+								<tr class="fixedPerPair">
+									<th>1ペア当りの修正数</th>
+									<td>-</td>
+								</tr>
+							</table>
 						</section>
 						<section id="daily" class="span4">
 							<h1>
@@ -84,11 +98,11 @@
 							</div>
 							<div class="modal-footer">
 								<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-								<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save changes</button>
+								<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save</button>
 							</div>
 						</section>
 
-						<section id="recordDaily" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
+						<section id="recordResult" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
 							<div class="modal-header">
 								実績の入力
 							</div>
@@ -110,7 +124,7 @@
 							</div>
 							<div class="modal-footer">
 								<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-								<button id="save" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save changes</button>
+								<button id="save" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save</button>
 							</div>
 						</section>
 					</div>

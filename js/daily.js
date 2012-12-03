@@ -1,22 +1,11 @@
 ;$(function() {
-	// 画面要素の宣言
-	var section = {
-			worker : $('#worker'),
-			project : $('#assignProject'),
-			daily : $('#daily'),
-			pairing : $('#pairing')
-	};
-	var div = {
-			memberList : section.worker.find('.memberList'),
-			assignList : section.project.find('.assignList'),
-			pairNumber : section.worker.find('.pair'),
-	};
+	var memberList = $('#worker').find('.memberList');
 	var pairList = $('#pairing').find('.pairList');
 
 	// Daily関連のfunction
 	var getCheckedMembers = function() {
 		var result = new Array();
-		var assignableMember = div.memberList.find('input[type=checkbox]:checked');
+		var assignableMember = memberList.find('input[type=checkbox]:checked');
 		assignableMember.each(function() {
 			var checkbox = $(this);
 			result.push(checkbox.val());
@@ -24,10 +13,10 @@
 		return result;
 	};
 	var countPair = function() {
-		return  div.memberList.find('input[type=checkbox]:checked').size() /2;
+		return  memberList.find('input[type=checkbox]:checked').size() /2;
 	};
 	var labelingPairCount = function() {
-		div.pairNumber.find('.pairCount').text(countPair);
+		$('#worker').find('.pairCount').text(countPair);
 	};
 	var setBugs = function(bugs) {
 		$('input[name=total]').val(bugs.total);
@@ -54,13 +43,25 @@
 		pairList.trigger('list.refresh');
 	});
 
+	/** 実績リスト */
+	$('#teamRecord').find('table').on('table.refresh', function(){
+		var table = $(this);
+
+		$.each(['total', 'fixed', 'increase'],function(index, name){
+			var value = $('#recordResult').find('input[name=' + name + ']').val();
+			table.find('.' + name + ' > td').text(value + ' 件');
+		});
+		var perPair = Math.round($('#recordResult').find('input[name=fixed]').val() * 100 / countPair()) / 100;
+		table.find('.fixedPerPair > td').text(perPair + ' 件');
+	});
+
 	/** タスクに入れる人 */
 	$('#worker').on('list.refresh', function() {
 		var members = $.fromLocalStrage(keys.member);
 		$.each(members, function(index) {
 			var span = $('<span/>').addClass('span2')
 								.append($.createCheckbox(members[index], members[index]));
-			div.memberList.append(span);
+			memberList.append(span);
 		});
 		labelingPairCount();
 		pairList.trigger('list.refresh');
@@ -134,19 +135,23 @@
 	$("#taskDate").on('record.load', function(){
 		var taskDate = $(this);
 		var  loadedRecord = $.selectDailyRecord(taskDate.val());
+		console.log('◆Load ' + taskDate.val() + ' Record...');
+		console.log(loadedRecord);
 		if(loadedRecord){
 			setBugs(loadedRecord.bugs);
 			setWorker(loadedRecord.pairs);
 			setPair(loadedRecord.pairs);
+			$('#teamRecord').find('table').trigger('table.refresh');
 		}else{
 			// すべてを初期化する
 			labelingPairCount();
 			pairList.trigger('list.refresh');
+			$('#recordResult').find('input[type=number]').val('');
 		}
 	});
 
 	/** datepicker */
-	$('#datepicker').datepicker({
+	var datepicker = $('#datepicker').datepicker({
 	    onSelect: function(dateText, inst) {
 	    	$('.dateLabel').text(dateText);
 	        $("#taskDate").val(dateText).trigger('record.load');

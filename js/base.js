@@ -42,14 +42,15 @@
 		return current.getFullYear() + "/" + $.padZero(current.getMonth()+1) + "/" + $.padZero(current.getDate());
 	},
 	saveDailyRecord : function(date, record){
-		var records = $.fromLocalStrage(keys.dailyRecode);
+		var records = $.fromLocalStrage(keys.dailyRecord);
 		if(!records) records = {};
 		records[date]= record;
-		$.toLocalStrage(keys.dailyRecode, records);
-		return true;
+		$.toLocalStrage(keys.dailyRecord, records);
+		return;
 	},
 	selectDailyRecord: function(date) {
-		var records = $.fromLocalStrage(keys.dailyRecode);
+		var records = $.fromLocalStrage(keys.dailyRecord);
+		if(!records) return;
 		return records[date];
 	}
 });
@@ -74,5 +75,5 @@ Array.prototype.shuffle = function() {
 var keys = {
 		member: 'member',
 		project: 'project',
-		dailyRecode: 'daily_record'
+		dailyRecord: 'daily_record'
 };

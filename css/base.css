@@ -51,6 +51,7 @@ section > h1{
 	padding-left: 10px;
 	border-radius: 2px;
 }
+
 section h2{
 	border-left: 5px solid #CCC;
 	border-bottom: 1px dotted #CCC;
@@ -61,6 +62,11 @@ section h2{
 
 input[type=number]{
 	text-align: right;
+}
+
+table th,
+.table th{
+	width: 150px;
 }
 .checkbox{
 	margin-left: 10px;
@@ -74,6 +80,10 @@ input[type=number]{
 	margin: 10px;
 	padding: 5px 10px;
 	background-color: #FFE7BD;
+}
+
+.modal-footer > .btn{
+	margin: 5px 20px;
 }
 
 /* datepicker */
