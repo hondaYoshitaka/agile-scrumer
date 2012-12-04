@@ -41,23 +41,23 @@ $(function(){
 		});
 	});
 	btn.register.member.on('click', function() {
-		var members = $.fromLocalStrage(keys.member);
+		var members = $.fromLocalStrage(AS.keys.member);
 		if(!members) members = new Array();
 
 		var name = input.name.member.val();
 		members.push(name);
-		 $.toLocalStrage(keys.member, members);
+		 $.toLocalStrage(AS.keys.member, members);
 		 $('.cover').trigger('click');
 		 input.name.member.val('');
 		 section.list.member.trigger('list.refresh');
 	});
 	btn.register.project.on('click', function() {
-		var projects = $.fromLocalStrage(keys.project);
+		var projects = $.fromLocalStrage(AS.keys.project);
 		if(!projects) projects = new Array();
 
 		var name = input.name.project.val();
 		projects.push(name);
-		$.toLocalStrage(keys.project, projects);
+		$.toLocalStrage(AS.keys.project, projects);
 		$('.cover').trigger('click');
 		input.name.project.val('');
 		section.list.project.trigger('list.refresh');
@@ -65,7 +65,7 @@ $(function(){
 
 	section.list.member.on('list.refresh', function() {
 		var detail = $(this).find('.detail').empty();
-		var members = $.fromLocalStrage(keys.member);
+		var members = AS.findAllMember();
 		if(members){
 			$.each(members, function(index) {
 				detail.append($.createLabelWithIcon('icon-user', members[index]).addClass('span2'));
@@ -75,7 +75,7 @@ $(function(){
 
 	section.list.project.on('list.refresh', function() {
 		var detail = $(this).find('.detail').empty();
-		var projects = $.fromLocalStrage(keys.project);
+		var projects = AS.findAllProject();
 		if(projects){
 			$.each(projects, function(index) {
 				detail.append($.createLabelWithIcon('icon-bookmark', projects[index]).addClass('span2'));

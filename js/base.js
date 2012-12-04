@@ -40,18 +40,6 @@
 	getCurrentDate : function(){
 		var current = new Date();
 		return current.getFullYear() + "/" + $.padZero(current.getMonth()+1) + "/" + $.padZero(current.getDate());
-	},
-	saveDailyRecord : function(date, record){
-		var records = $.fromLocalStrage(keys.dailyRecord);
-		if(!records) records = {};
-		records[date]= record;
-		$.toLocalStrage(keys.dailyRecord, records);
-		return;
-	},
-	selectDailyRecord: function(date) {
-		var records = $.fromLocalStrage(keys.dailyRecord);
-		if(!records) return;
-		return records[date];
 	}
 });
 
@@ -71,9 +59,55 @@ Array.prototype.shuffle = function() {
 	return this;
 };
 
-/** ローカルストレージのキー */
-var keys = {
+/** 業務共通の処理 */
+AS = {};
+AS = {
+	/** ローカルストレージのキー */
+	keys: {
 		member: 'member',
 		project: 'project',
-		dailyRecord: 'daily_record'
+		assignableMember: 'assignableMember',
+		pair: 'pair',
+		bug: 'bug'
+	},
+	saveDailyData: function(date, record, strageKey){
+		var records = $.fromLocalStrage(strageKey);
+		if(!records) records = {};
+
+		records[date]= record;
+		$.toLocalStrage(strageKey, records);
+		return;
+	},
+	saveDailyPair : function(date, record){
+		AS.saveDailyData(date,record,AS.keys.pair);
+		return;
+	},
+	saveDailyBug : function(date, record){
+		AS.saveDailyData(date,record,AS.keys.bug);
+		return;
+	},
+	saveDailyAssignableMember : function(date, record){
+		AS.saveDailyData(date,record,AS.keys.assignableMember);
+		return;
+	},
+	selectDailyData: function(date, strageKey) {
+		var records = $.fromLocalStrage(strageKey);
+		if(!records) return;
+		return records[date];
+	},
+	findAllMember: function(date){
+		return $.fromLocalStrage(AS.keys.member);
+	},
+	findAllProject: function(date){
+		return $.fromLocalStrage(AS.keys.project);
+	},
+	selectDailyPair: function(date){
+		return AS.selectDailyData(date,AS.keys.pair);
+	},
+	selectDailyBug: function(date){
+		return AS.selectDailyData(date,AS.keys.bug);
+	},
+	selectDailyAssignableMember: function(date){
+		return AS.selectDailyData(date,AS.keys.assignableMember);
+	}
 };
