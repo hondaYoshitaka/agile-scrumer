@@ -18,16 +18,15 @@
 			$('#worker').find('.pairCount').text($.countPair);
 		},
 		setRecordResult: function(bugs) {
-			if(!bugs){
-				$('#recordResult').find('input').val('');
-				return;
-			}
+			$('#recordResult').find('input').val('');
+			if(!bugs) return;
 			$.each(['total','fixed','increase'],function(i, name){
 				$('input[name=' + name + ']').val(bugs[name]);
 			});
 		},
 		setWorker: function(worker) {
 			$('#worker').find('input[type=checkbox]').removeAttr('checked');
+			if(!worker) return;
 			$.each(worker, function(index, value){
 				$('#worker').find('input[value='+ value +']').trigger('click');
 			});
@@ -40,12 +39,11 @@
 	$(function() {
 		var memberList = $('#worker').find('.memberList');
 		var pairList = $('#pairing').find('.pairList');
+		var fixedPerPairLabel = $('#teamRecord').find('.fixedPerPair > td');
 
 		/** メンバーリスト */
 		memberList.on('change', 'input[type=checkbox]', function() {
-			// すべてを初期化する
 			$.labelingPairCount();
-			pairList.trigger('list.refresh');
 		});
 
 		/** 実績リスト */
@@ -60,9 +58,20 @@
 					td.text('-');
 				}
 			});
+			fixedPerPairLabel.trigger('label.refresh');
+		});
+
+		/** 1ペア当りの修正数の更新 */
+		fixedPerPairLabel.on('label.refresh', function(){
+			var td = $(this);
+			var pairCnt = $.countPair();
+			if(!pairCnt){
+				td.text('-');
+				return;
+			}
 			var fixedCnt = $('#recordResult').find('input[name=fixed]').val(),
-				perPair = Math.round(fixedCnt * 10 / $.countPair()) / 10;
-			table.find('.fixedPerPair > td').text(perPair + ' 件');
+				perPair = Math.round(fixedCnt * 10 / pairCnt) / 10;
+			td.text(perPair + ' 件');
 		});
 
 		/** タスクに入れる人 */
@@ -95,14 +104,23 @@
 			}
 		}).trigger('list.refresh');
 
+		/** チェックボックスon/offボタン */
+		$('.all-check-on').on('click', function(){
+			var checkboxs = memberList.find('input[type=checkbox]');
+			checkboxs.attr('checked','checked');
+		});
+		$('.all-check-off').on('click', function(){
+			var checkboxs = memberList.find('input[type=checkbox]');
+			checkboxs.removeAttr('checked');
+		});
 		/** シャッフルボタン */
 		$('#pairing').find('.shuffle').on('click', function(){
 			var btn = $(this);
-			pairList.trigger('list.refresh');
 			var members = $.getCheckedMembers();
 			members.shuffle();
 
 			var pairDiv = pairList.find('div.pair[data-pair-id]');
+			pairDiv.find('.member').remove();
 			pairDiv.each(function() {
 				// 奇数の場合、1ペア3人とする
 				var max_member_num = (members.length % 2 == 1) ? 3 : 2;
@@ -113,25 +131,6 @@
 					pd.find('.inner').append(p);
 				}
 			});
-			btn.trigger('pair.save');
-
-		}).on('pair.save', function(){
-			var record = {};
-			pairList.find('.pair').each(function(){
-				var pair = $(this);
-				var pairId = pair.data('pair-id');
-				var members = new Array();
-				pair.find('.member').each(function() {
-					var name = $(this).text();
-					members.push(name);
-				});
-				record['pair'+pairId] =  {
-						members: members,
-						project: pair.find('select > :checked').val()
-				};
-			});
-			console.log(record);
-			AS.saveDailyPair($("#taskDate").val(), record);
 		});
 
 		/** 実績の保存ボタン */
@@ -153,6 +152,27 @@
 				record.push(input.val());
 			});
 			AS.saveDailyAssignableMember($("#taskDate").val(), record);
+			pairList.trigger('list.refresh');
+			fixedPerPairLabel.trigger('label.refresh');
+		});
+		/** ペアを決めるの保存ボタン */
+		$('#pairing').find('.save').on('click', function(){
+			var record = {};
+			pairList.find('.pair').each(function(){
+				var pair = $(this);
+				var pairId = pair.data('pair-id');
+				var members = new Array();
+				pair.find('.member').each(function() {
+					var name = $(this).text();
+					members.push(name);
+				});
+				record['pair'+pairId] =  {
+						members: members,
+						project: pair.find('select > :checked').val()
+				};
+			});
+			console.log(record);
+			AS.saveDailyPair($("#taskDate").val(), record);
 		});
 
 		/** Dailyのレコードをロードする */
@@ -167,9 +187,8 @@
 
 			// workerのデータをロードする
 			var worker = AS.selectDailyAssignableMember(dateVal);
-			if(worker){
-				$.setWorker(worker);
-			}
+			$.setWorker(worker);
+			pairList.trigger('list.refresh');
 			console.log(worker);
 
 			// pairのデータをロードする
@@ -187,7 +206,7 @@
 		    }
 		});
 
-		// デフォルト表示を現在日付にする
+		// 初期表示は現在日付にする
 		$('.dateLabel').text($.getCurrentDate());
 		$("#taskDate").val($.getCurrentDate()).trigger('record.load');
 	});

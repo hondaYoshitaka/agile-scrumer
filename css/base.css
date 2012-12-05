@@ -68,6 +68,11 @@ table th,
 .table th{
 	width: 150px;
 }
+
+.text-small{
+	font-size: 10px;
+}
+
 .checkbox{
 	margin-left: 10px;
 }
@@ -84,6 +89,10 @@ table th,
 
 .modal-footer > .btn{
 	margin: 5px 20px;
+}
+
+.btn + .btn {
+	margin : 5px 20px;
 }
 
 /* datepicker */

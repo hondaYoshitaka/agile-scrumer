@@ -15,7 +15,6 @@
 		var labelTag = $('<label/>').addClass('checkbox inline');
 		var checkbox = $('<input/>').attr({
 			type : 'checkbox',
-			checked: 'checked',
 			value : value
 		});
 		return labelTag.append(checkbox).append(label);
