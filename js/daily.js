@@ -31,8 +31,32 @@
 				$('#worker').find('input[value='+ value +']').trigger('click');
 			});
 		},
-		setPair: function(pairs) {
+		setPairs: function(pairs) {
+			if(!pairs) return;
+			var pairList = $('#pairing').find('.pairList');
+			$.each(pairs, function(index, data){
+				var project = data['project'];
+				var pairId = index.replace('pair',''),
+					target = pairList.find('[data-pair-id=' + pairId + ']');
+				target.find('option[value=' + project + ']').attr('selected','selected');
+			});
+			//TODO メンバーをセットする。
 			return;
+		},
+		setMember: function(members){
+			var pairList = $('#pairing').find('.pairList');
+			var pairDiv = pairList.find('div.pair[data-pair-id]');
+			pairDiv.find('.member').remove();
+			pairDiv.each(function() {
+				// 奇数の場合、1ペア3人とする
+				var max_member_num = (members.length % 2 == 1) ? 3 : 2;
+				var pd = $(this);
+				for(var i=0; i < max_member_num ;i++){
+					var member = members.pop(members[0]);
+					var p = $('<p/>').addClass('member').append(member);
+					pd.find('.inner').append(p);
+				}
+			});
 		}
 	});
 
@@ -108,10 +132,12 @@
 		$('.all-check-on').on('click', function(){
 			var checkboxs = memberList.find('input[type=checkbox]');
 			checkboxs.attr('checked','checked');
+			$.labelingPairCount();
 		});
 		$('.all-check-off').on('click', function(){
 			var checkboxs = memberList.find('input[type=checkbox]');
 			checkboxs.removeAttr('checked');
+			$.labelingPairCount();
 		});
 		/** シャッフルボタン */
 		$('#pairing').find('.shuffle').on('click', function(){
@@ -119,18 +145,7 @@
 			var members = $.getCheckedMembers();
 			members.shuffle();
 
-			var pairDiv = pairList.find('div.pair[data-pair-id]');
-			pairDiv.find('.member').remove();
-			pairDiv.each(function() {
-				// 奇数の場合、1ペア3人とする
-				var max_member_num = (members.length % 2 == 1) ? 3 : 2;
-				var pd = $(this);
-				for(var i=0; i < max_member_num ;i++){
-					var member = members.pop(members[0]);
-					var p = $('<p/>').addClass('member').append(member);
-					pd.find('.inner').append(p);
-				}
-			});
+			$.setMember(members);
 		});
 
 		/** 実績の保存ボタン */
@@ -193,6 +208,7 @@
 
 			// pairのデータをロードする
 			var pairs = AS.selectDailyPair(dateVal);
+			$.setPairs(pairs);
 			console.log(pairs);
 
 			$('#teamRecord').find('table').trigger('table.refresh');
