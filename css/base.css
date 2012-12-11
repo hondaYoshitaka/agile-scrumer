@@ -30,11 +30,6 @@ header p{
 .accent{
 	color : #FFC957;
 }
-
-aside{
-	background-color: #FFF;
-}
-
 section{
 	background-color: rgba(255,255,255,0.9);
 	margin-bottom: 10px;
@@ -103,4 +98,22 @@ table th,
 	color: #151F30;
 	float: right;
 	font-size: 15px;
+}
+[class$="-right"]{
+	float :right;
+}
+.nav-list > li > a {
+	padding: 8px 14px;
+	border: 1px solid #E5E5E5;
+	background-color:#F7F7F7;
+}
+.nav-list > li:first-child > a {
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+	border-radius: 6px 6px 0 0;
+}
+.nav-list > li:last-child > a {
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
 }
