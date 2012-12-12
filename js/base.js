@@ -39,12 +39,40 @@
 	getCurrentDate : function(){
 		var current = new Date();
 		return current.getFullYear() + "/" + $.padZero(current.getMonth()+1) + "/" + $.padZero(current.getDate());
+	},
+	computeDate : function(year, month, day, addDays) {
+	    var dt = new Date(year, month - 1, day);
+	    var baseSec = dt.getTime();
+	    var addSec = addDays * 86400000;//日数 * 1日のミリ秒数
+	    var targetSec = baseSec + addSec;
+	    dt.setTime(targetSec);
+	    return dt;
 	}
 });
 
 $.fn.extend({
 
 });
+/** 日付処理用のオブジェクト */
+var ASDate = function(str) {
+	var ASDate = function(str){
+		var s = str.split('/');
+		console.log(s)
+		this.year = s[0];
+		this.month = s[1];
+		this.day = s[2];
+		return d;
+	};
+	ASDate.prototype.addDays =  function(addDays) {
+	    var dt = new Date(this.year, this.month - 1, this.day);
+	    var baseSec = dt.getTime();
+	    var addSec = addDays * 86400000;//日数 * 1日のミリ秒数
+	    var targetSec = baseSec + addSec;
+	    dt.setTime(targetSec);
+	    return dt;
+	};
+	return ASDate;
+};
 
 /** 配列をシャッフルする */
 Array.prototype.shuffle = function() {
