@@ -1,14 +1,14 @@
 ;(function($){
 	$.fn.extend({
 			countChart : function(start, end){
-				//TODO オブジェクトを使って処理する
-				var year = '2012', month ='12';
 				var container = $(this);
+				var startDate = new ASDate(start),
+					  endDate = new ASDate(end);
 				var xData = new Array(), yData = new Array();
 				var categories = new Array();
 
-				for(var i=1 ;  i<=31 ; i++){
-					var target = year + '/' + month + '/' + $.padZero(i);
+				for(var i=0 ; ; i++){
+					var target = startDate.addDays(i);
 					var  d = AS.selectDailyBug(target);
 					if(d){
 						xData.push(Number(d['total']));
@@ -17,7 +17,9 @@
 						 xData.push(0);
 						 yData.push(0);
 					}
+					//TODO 日付ラベルをうまい具合にだす
 					categories.push($.padZero(i));
+					if(target >= endDate.toString()) break;
 				};
 				//x軸のラベル
 				var categories = { categories: categories };
@@ -85,6 +87,6 @@
 			});
 		});
 		$("a[href='#count']").tab('show');
-		$('#count-container').countChart('2012/12/01',  '2012/12/31');
+		$('#count-container').countChart('2012/12/01',  '2012/12/30');
 	});
 })(jQuery);

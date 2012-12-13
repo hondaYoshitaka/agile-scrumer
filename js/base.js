@@ -54,14 +54,12 @@ $.fn.extend({
 
 });
 /** 日付処理用のオブジェクト */
-var ASDate = function(str) {
+var ASDate = (function() {
 	var ASDate = function(str){
 		var s = str.split('/');
-		console.log(s)
 		this.year = s[0];
 		this.month = s[1];
 		this.day = s[2];
-		return d;
 	};
 	ASDate.prototype.addDays =  function(addDays) {
 	    var dt = new Date(this.year, this.month - 1, this.day);
@@ -69,10 +67,19 @@ var ASDate = function(str) {
 	    var addSec = addDays * 86400000;//日数 * 1日のミリ秒数
 	    var targetSec = baseSec + addSec;
 	    dt.setTime(targetSec);
-	    return dt;
+	    return (function(date){
+	    	var year = date.getFullYear(), month = date.getMonth() + 1,
+	    		day = date.getDate();
+	    	if ( month < 10 )  month = '0' + month;
+	    	if ( day < 10 )  day = '0' + day;
+	    	return year + '/' + month + '/' + day;
+	    })(dt);
+	};
+	ASDate.prototype.toString = function() {
+		return this.year + '/' + this.month + '/' + this.day;
 	};
 	return ASDate;
-};
+})();
 
 /** 配列をシャッフルする */
 Array.prototype.shuffle = function() {
