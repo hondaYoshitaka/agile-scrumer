@@ -40,24 +40,54 @@
 									<i class="icon-edit"></i> 記入
 								</a>
 							</h1>
-							<table class="table">
-								<tr class="total">
-									<th>未完了</th>
-									<td>-</td>
-								</tr>
-								<tr class="fixed">
-									<th>修正済</th>
-									<td>-</td>
-								</tr>
-								<tr class="increase">
-									<th>増加数</th>
-									<td>-</td>
-								</tr>
-								<tr class="fixedPerPair">
-									<th>1ペア当りの修正数</th>
-									<td>-</td>
-								</tr>
-							</table>
+							<div class="row">
+								<div class="span4">
+									<div style="margin: 5px 10px;">
+										<div style="padding: 5px; background-color:#FFE7BD;margin-bottom: 5px;">
+											<span style="font-size:12px;">かんばんタスク</span>
+										</div>
+										<table class="table">
+											<tr>
+												<th>総見積時間</th>
+												<td>-</td>
+											</tr>
+											<tr>
+												<th>残見積時間(未完了タスクの)</th>
+												<td>-</td>
+											</tr>
+											<tr>
+												<th>実績時間</th>
+												<td>-</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="span4">
+									<div style="margin: 5px 10px;">
+										<div style="padding: 5px; background-color:#E8F0F7;margin-bottom: 5px;">
+											<span style="font-size:12px;">不具合チケット</span>
+										</div>
+										<table class="table">
+											<tr class="total">
+												<th>総数</th>
+												<td>-</td>
+											</tr>
+											<tr class="fixed">
+												<th>修正済</th>
+												<td>-</td>
+											</tr>
+											<tr class="increase">
+												<th>完了</th>
+												<td>-</td>
+											</tr>
+											<tr class="fixedPerPair">
+												<th>1ペア当りの修正数</th>
+												<td>-</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
 						</section>
 						<section id="daily" class="span4">
 							<h1>
@@ -105,20 +135,20 @@
 
 						<section id="recordResult" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
 							<div class="modal-header">
-								実績の入力
+								不具合チケットの入力
 							</div>
 							<div class="modal-body">
 								<table class="table table-bordered">
 									<tr style="width:200px;">
-										<th>未完了の不具合</th>
+										<th>総数</th>
 										<td><input type="number" name="total" class="input-mini" /></td>
 									</tr>
 									<tr>
-										<th>修正済み不具合</th>
+										<th>修正済み</th>
 										<td><input type="number" name="fixed" class="input-mini" /></td>
 									</tr>
 									<tr>
-										<th>不具合増加数</th>
+										<th>完了</th>
 										<td><input type="number" name="increase" class="input-mini" /></td>
 									</tr>
 								</table>
