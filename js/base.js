@@ -39,14 +39,6 @@
 	getCurrentDate : function(){
 		var current = new Date();
 		return current.getFullYear() + "/" + $.padZero(current.getMonth()+1) + "/" + $.padZero(current.getDate());
-	},
-	computeDate : function(year, month, day, addDays) {
-	    var dt = new Date(year, month - 1, day);
-	    var baseSec = dt.getTime();
-	    var addSec = addDays * 86400000;//日数 * 1日のミリ秒数
-	    var targetSec = baseSec + addSec;
-	    dt.setTime(targetSec);
-	    return dt;
 	}
 });
 
@@ -61,6 +53,11 @@ var ASDate = (function() {
 		this.month = s[1];
 		this.day = s[2];
 	};
+	/**
+	 * 指定の日数分、日付を進める。
+	 * マイナス値を指定すると、○日前を算出できる。
+	 * @returns ASDate型
+	 */
 	ASDate.prototype.addDays =  function(addDays) {
 	    var dt = new Date(this.year, this.month - 1, this.day);
 	    var baseSec = dt.getTime();
@@ -72,9 +69,20 @@ var ASDate = (function() {
 	    		day = date.getDate();
 	    	if ( month < 10 )  month = '0' + month;
 	    	if ( day < 10 )  day = '0' + day;
-	    	return year + '/' + month + '/' + day;
+	    	return new ASDate(year + '/' + month + '/' + day);
 	    })(dt);
 	};
+	/**
+	 * 日付の比較を行う。
+	 * @returns  -1(this > 引数), 0(this = 引数), 1(this < 引数)
+	 */
+	ASDate.prototype.comparedTo = function(target){
+		if(this.toString() == target.toString()) return 0;
+		return (this.toString() < target.toString()) ? 1 : -1;
+	};
+	/**
+	 * 日付の文字列を返す
+	 */
 	ASDate.prototype.toString = function() {
 		return this.year + '/' + this.month + '/' + this.day;
 	};

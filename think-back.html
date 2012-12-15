@@ -4,9 +4,12 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="css/bootstrap.css">
 		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" href="css/datepicker/jquery-ui.css">
 		<script src="js/jQuery.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/highcharts.js"></script>
+		<script src="js/jquery-ui.js"></script>
+		<script src="js/datepicker-setting.js"></script>
 		<script src="js/base.js"></script>
 		<script src="js/think-back.js"></script>
 		<title>Agile  Scrumer｜ アジャイル  スクラマー</title>
@@ -30,36 +33,48 @@
 			</div>
 			<div class="row">
 				<aside class="span3">
+					<div>
+						絞り込み：<br/>
+						<input type="text" name="startDate" class="input-small" />～
+						<input type="text" name="endDate" class="input-small" />
+					</div>
 					<ul class="nav nav-list">
 						<li>
-							<a href="#count" data-toggle="tab">
+							<a href="#daily-bug" data-toggle="tab">
 								<i class="icon-chevron-right"> </i> 不具合数
 							</a>
 						</li>
 						<li>
-							<a href="#increase" data-toggle="tab">
-								<i class="icon-chevron-right"> </i> 不具合増加数
+							<a href="#increase-finishing" data-toggle="tab">
+								<i class="icon-chevron-right"> </i> 増加･消化スピード
 							</a>
 						</li>
 						<li>
 							<a href="#fixed" data-toggle="tab">
-								<i class="icon-chevron-right"> </i> 不具合消化率
+								<i class="icon-chevron-right"> </i> リソース数
 							</a>
 						</li>
 					</ul>
 				</aside>
 				<article class="span9">
 					<div class="tab-content row">
-						<section class="tab-pane span9" id="count">
+						<section class="tab-pane span9" id="daily-bug">
 							<h1>不具合数</h1>
 							<div id="count-container"></div>
 						</section>
-						<section class="tab-pane span9" id="increase">
-							<h1>不具合増加数</h1>
-							<div id="increase-container"></div>
+						<section class="tab-pane span9" id="increase-finishing">
+							<h1>増加･消化スピード</h1>
+							<div id="average-area" style="margin:5px 20px; padding: 5px;">
+								<span class="beautiful-font text-large">
+									Score: <span class="total-score"></span>
+								</span>
+								(増加平均：<span class="increase-score beautiful-font"></span>件
+								, 消化平均：<span class="finishing-score beautiful-font"></span>件)
+							</div>
+							<div id="increase-finishing-container"></div>
 						</section>
 						<section class="tab-pane span9" id="fixed">
-							<h1>不具合消化率</h1>
+							<h1>リソース数</h1>
 							<div id="fixed-container"></div>
 						</section>
 					</div>

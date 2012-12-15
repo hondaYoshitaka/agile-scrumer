@@ -20,7 +20,7 @@
 		setRecordResult: function(bugs) {
 			$('#recordResult').find('input').val('');
 			if(!bugs) return;
-			$.each(['total','fixed','increase'],function(i, name){
+			$.each(['total','fixed','complete'],function(i, name){
 				$('input[name=' + name + ']').val(bugs[name]);
 			});
 		},
@@ -63,7 +63,6 @@
 	$(function() {
 		var memberList = $('#worker').find('.memberList');
 		var pairList = $('#pairing').find('.pairList');
-		var fixedPerPairLabel = $('#teamRecord').find('.fixedPerPair > td');
 
 		/** メンバーリスト */
 		memberList.on('change', 'input[type=checkbox]', function() {
@@ -73,7 +72,7 @@
 		/** 実績リスト */
 		$('#teamRecord').find('table').on('table.refresh', function(){
 			var table = $(this);
-			$.each(['total', 'fixed', 'increase'],function(index, name){
+			$.each(['total', 'fixed', 'complete'],function(index, name){
 				var value = $('#recordResult').find('input[name=' + name + ']').val(),
 					td = table.find('.' + name + ' > td');
 				if (value) {
@@ -82,20 +81,6 @@
 					td.text('-');
 				}
 			});
-			fixedPerPairLabel.trigger('label.refresh');
-		});
-
-		/** 1ペア当りの修正数の更新 */
-		fixedPerPairLabel.on('label.refresh', function(){
-			var td = $(this);
-			var pairCnt = $.countPair();
-			if(!pairCnt){
-				td.text('-');
-				return;
-			}
-			var fixedCnt = $('#recordResult').find('input[name=fixed]').val(),
-				perPair = Math.round(fixedCnt * 10 / pairCnt) / 10;
-			td.text(perPair + ' 件');
 		});
 
 		/** タスクに入れる人 */
@@ -154,7 +139,7 @@
 			var record = {
 					total: $('input[name=total]').val(),
 					fixed: $('input[name=fixed]').val(),
-					increase: $('input[name=increase]').val()
+					complete: $('input[name=complete]').val()
 				};
 			AS.saveDailyBug($("#taskDate").val(), record);
 			$('#teamRecord').find('table').trigger('table.refresh')
@@ -168,7 +153,6 @@
 			});
 			AS.saveDailyAssignableMember($("#taskDate").val(), record);
 			pairList.trigger('list.refresh');
-			fixedPerPairLabel.trigger('label.refresh');
 		});
 		/** ペアを決めるの保存ボタン */
 		$('#pairing').find('.save').on('click', function(){
