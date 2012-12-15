@@ -69,11 +69,11 @@
 			                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white'
 			            },
 			            series: [{
-			                name: '未着手', data: notouchData
+			                name: '未着手', data: notouchData, color:'#00AEE0'
 			            }, {
-			                name: '修正済', data: fixedData
+			                name: '修正済', data: fixedData, color:'#E8AC51'
 			            }, {
-			                name: '完了', data: completeData
+			                name: '完了', data: completeData, color:'#AAC863'
 			            }]
 			        });
 			},
@@ -150,9 +150,9 @@
 			                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white'
 			            },
 			            series: [{
-			                name: '増加', data: increaseData, color: '#b22'
+			                name: '増加', data: increaseData, color: '#DD6673'
 			            }, {
-			                name: '消化', data: finishingData
+			                name: '消化', data: finishingData, color: '#27ACA9'
 			            }]
 			        });
 			}

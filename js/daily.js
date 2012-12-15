@@ -39,8 +39,14 @@
 				var pairId = index.replace('pair',''),
 					target = pairList.find('[data-pair-id=' + pairId + ']');
 				target.find('option[value=' + project + ']').attr('selected','selected');
+
+				if(data['members']){
+					$.each(data['members'], function(index, member) {
+						var p = $('<p/>').addClass('member').append(member);
+						target.find('.inner').append(p);
+					});
+				}
 			});
-			//TODO メンバーをセットする。
 			return;
 		},
 		setMember: function(members){
@@ -104,10 +110,10 @@
 				var projects = AS.findAllProject();
 				var select = $.createSelectbox(projects);
 
-				var icon = $('<i/>').addClass('  icon-ok');
+				var icon = $('<i/>').addClass(' icon-flag');
 				var pairDiv = $('<div/>').addClass('span3 pair').attr('data-pair-id', i);
 				var inner = $('<div/>').addClass('inner')
-											.append(icon).append(' pair '+i).append(select)
+											.append(icon).append(' Pair '+i).append(select)
 											.appendTo(pairDiv);
 				pairList.append(pairDiv);
 			}
@@ -177,23 +183,19 @@
 		/** Dailyのレコードをロードする */
 		$("#taskDate").on('record.load', function(){
 			var dateVal = $(this).val();
-			console.log('◆Load ' + dateVal + ' Record...');
 
 			// bugのデータをロードする
 			var bugs = AS.selectDailyBug(dateVal);
 			$.setRecordResult(bugs);
-			console.log(bugs);
 
 			// workerのデータをロードする
 			var worker = AS.selectDailyAssignableMember(dateVal);
 			$.setWorker(worker);
 			pairList.trigger('list.refresh');
-			console.log(worker);
 
 			// pairのデータをロードする
 			var pairs = AS.selectDailyPair(dateVal);
 			$.setPairs(pairs);
-			console.log(pairs);
 
 			$('#teamRecord').find('table').trigger('table.refresh');
 		});

@@ -33,11 +33,15 @@
 			</div>
 			<div class="row">
 				<aside class="span3">
-					<div>
-						絞り込み：<br/>
-						<input type="text" name="startDate" class="input-small" />～
-						<input type="text" name="endDate" class="input-small" />
-					</div>
+					<section id="term-grep">
+						<label class="table-title" style="border-radius: 6px 6px 0px 0px;">
+							Sprint
+						</label>
+						<div style="padding: 5px 10px;">
+							<input type="text" name="startDate" class="input-small" />～
+							<input type="text" name="endDate" class="input-small" />
+						</div>
+					</section>
 					<ul class="nav nav-list">
 						<li>
 							<a href="#daily-bug" data-toggle="tab">
@@ -65,11 +69,11 @@
 						<section class="tab-pane span9" id="increase-finishing">
 							<h1>増加･消化スピード</h1>
 							<div id="average-area" style="margin:5px 20px; padding: 5px;">
-								<span class="beautiful-font text-large">
+								<span class="beautiful-font text-xlarge">
 									Score: <span class="total-score"></span>
 								</span>
-								(増加平均：<span class="increase-score beautiful-font"></span>件
-								, 消化平均：<span class="finishing-score beautiful-font"></span>件)
+								(増加平均：<span class="increase-score beautiful-font text-large"></span>件
+								, 消化平均：<span class="finishing-score beautiful-font text-large"></span>件)
 							</div>
 							<div id="increase-finishing-container"></div>
 						</section>

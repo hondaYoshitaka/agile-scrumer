@@ -33,7 +33,7 @@ header p{
 	color : #FFC957;
 }
 section{
-	background-color: rgba(255,255,255,0.9);
+	background-color: rgba(255, 255, 255, 0.8);
 	margin-bottom: 10px;
 }
 section > h1{
@@ -53,12 +53,6 @@ section h2{
 	font-size: 20px;
 	margin: 5px 10px 15px;
 }
-section .table-title{
-	font-size:12px;
-	padding: 5px;
-	background-color: #B6B6B6;
-	color: #F3F3F3;
-}
 
 input[type=number]{
 	text-align: right;
@@ -67,10 +61,6 @@ input[type=number]{
 table th,
 .table th{
 	width: 150px;
-}
-
-.text-small{
-	font-size: 10px;
 }
 
 .checkbox{
@@ -97,13 +87,26 @@ table th,
 	margin : 5px 20px;
 }
 
+.text-small{
+	font-size: 10px;
+}
 .text-large{
+	font-size: 18px;
+}
+.text-xlarge{
 	font-size: 25px;
 	font-weight:bold;
 }
 .beautiful-font{
 	font-family: 'Comic Sans MS';
 }
+.table-title{
+	font-size:12px;
+	padding: 5px;
+	background-color: #B6B6B6;
+	color: #F3F3F3;
+}
+
 /* datepicker */
 #datepicker .ui-datepicker{
 	margin: 10px 20px;
@@ -135,4 +138,10 @@ table th,
 	-webkit-border-radius: 0 0 6px 6px;
 	-moz-border-radius: 0 0 6px 6px;
 	border-radius: 0 0 6px 6px;
+}
+
+/* term-grep */
+#term-grep{
+	margin-bottom: 15px;
+	border-radius: 6px;
 }
