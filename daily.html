@@ -36,21 +36,23 @@
 						<section id="teamRecord" class="span8">
 							<h1>
 								チーム実績
-								<a href="#recordResult" role="button" class="btn btn-mini" data-toggle="modal">
-									<i class="icon-edit"></i> 記入
-								</a>
 							</h1>
 							<div class="row">
 								<div class="span4">
 									<div style="margin: 5px 10px;">
-										<div class="table-title">かんばんタスク</div>
+										<div class="table-title">
+											かんばんタスク
+											<a href="#" role="button" class="btn btn-mini" data-toggle="modal">
+												<i class="icon-edit"></i> 記入
+											</a>
+										</div>
 										<table class="table table-bordered table-striped">
 											<tr>
 												<th>総見積時間</th>
 												<td>-</td>
 											</tr>
 											<tr>
-												<th>残見積時間(未完了タスクの)</th>
+												<th>残見積時間</th>
 												<td>-</td>
 											</tr>
 											<tr>
@@ -62,7 +64,12 @@
 								</div>
 								<div class="span4">
 									<div style="margin: 5px 10px;">
-										<div class="table-title">不具合チケット</div>
+										<div class="table-title">
+											不具合チケット
+											<a href="#recordResult" role="button" class="btn btn-mini" data-toggle="modal">
+												<i class="icon-edit"></i> 記入
+											</a>
+										</div>
 										<table class="table table-bordered table-striped">
 											<tr class="total">
 												<th>総数</th>
@@ -98,8 +105,10 @@
 								</a>
 							</h1>
 							<div class="pairList row"> </div>
-							<button type="button" class="btn shuffle">Shuffle</button>
-							<button type="button" class="btn btn-primary save">Save</button>
+							<div style="margin: 10px 20px;">
+								<button type="button" class="btn shuffle">ペアを決める</button>
+								<button type="button" class="btn btn-primary save">保存</button>
+							</div>
 						</section>
 
 						<!-- ポップアップ -->
@@ -120,8 +129,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-								<button class="btn btn-primary save" data-dismiss="modal" aria-hidden="true">Save</button>
+								<button class="btn" data-dismiss="modal" aria-hidden="true">キャンセル</button>
+								<button class="btn btn-primary save" data-dismiss="modal" aria-hidden="true">保存</button>
 							</div>
 						</section>
 
@@ -146,8 +155,8 @@
 								</table>
 							</div>
 							<div class="modal-footer">
-								<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-								<button class="btn btn-primary save" data-dismiss="modal" aria-hidden="true">Save</button>
+								<button class="btn" data-dismiss="modal" aria-hidden="true">キャンセル</button>
+								<button class="btn btn-primary save" data-dismiss="modal" aria-hidden="true">保存</button>
 							</div>
 						</section>
 					</div>
