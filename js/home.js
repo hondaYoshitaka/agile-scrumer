@@ -20,9 +20,9 @@ $(function(){
 				member : $('#addMember'),
 				project : $('#addProject'),
 			},
-			register : {
-				member : section.input.member.find('.register'),
-				project : section.input.project.find('.register')
+			save : {
+				member : section.input.member.find('.save'),
+				project : section.input.project.find('.save')
 			}
 	};
 
@@ -40,7 +40,7 @@ $(function(){
 			section.input.project.hide();
 		});
 	});
-	btn.register.member.on('click', function() {
+	btn.save.member.on('click', function() {
 		var members = $.fromLocalStrage(AS.keys.member);
 		if(!members) members = new Array();
 
@@ -51,7 +51,7 @@ $(function(){
 		 input.name.member.val('');
 		 section.list.member.trigger('list.refresh');
 	});
-	btn.register.project.on('click', function() {
+	btn.save.project.on('click', function() {
 		var projects = $.fromLocalStrage(AS.keys.project);
 		if(!projects) projects = new Array();
 

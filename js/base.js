@@ -45,6 +45,21 @@
 $.fn.extend({
 
 });
+$(function() {
+	//保存メッセージを出す。
+	$('.save').on('click' , function() {
+		var icon = $('<i/>').addClass('icon-ok').addClass('icon-white').css({
+			'margin-top':'5px'
+		});
+		var label = $('<label/>').append(icon).append(' 保存しました').css({
+			'color': 'white', 'font-size': '20px'
+		});
+		var msg = $('<div/>').addClass('save-message').append(label)
+										.appendTo('body')
+										.fadeOut(3000);
+	});
+});
+
 /** 日付処理用のオブジェクト */
 var ASDate = (function() {
 	var ASDate = function(str){
