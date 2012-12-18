@@ -1,0 +1,8 @@
+
+cd C:\Program Files\mongodb
+
+mongod --dbpath C:\Program Files\mongodb\data
+
+◆プロキシを通してからライブラリ更新する
+set http_proxy=http://tisproxy:8080
+npm install(nodePackageManage)

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/base.css">
+		<script src="js/jQuery.js"></script>
+		<script src="js/base.js"></script>
+		<script>
+			$(function(){
+				// デモ用のテストデータを埋め込む
+				$.toLocalStrage(AS.keys.member,[
+					'honda','suzuki','sato','ono','kawasima','okunishi','tsumura','nishijima','hirai'
+				]);
+				$.toLocalStrage(AS.keys.project,[
+					'Dharma','R25','Zexy-Store'
+				]);
+				var start =  new ASDate('2012/12/01');
+				var data = [
+					'54','6','14',
+					'57','6','14',
+					'78','12','18',
+					'84','24','23',
+					'98','24','31',
+					'114','18','53',
+					'139','14','74',
+					'166','9','103',
+					'173','22','117',
+					'181','9','145',
+					'60','3','1',
+					'63','8','9',
+					'73','2','21',
+					'82','1','25',
+					'94','9','37',
+					'98','8','46',
+					'103','20','54',
+					'123','9','71',
+					'131','17','84'
+				];
+				for(var i=0 ; i < data.length ; i++){
+					AS.saveDailyBug(start.addDays(i).toString(),{
+						'total': data[3*i],
+						'fixed': data[3*i +1],
+						'complete':data[3*i +2]
+					});
+				}
+				// 強制的にページ遷移させる
+				location.replace('home.html');
+			});
+		</script>
+	</head>
+	<body>
+		<!-- コンテンツはない -->
+	</body>
+</html>
